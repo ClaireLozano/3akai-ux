@@ -252,6 +252,26 @@ require(['jquery','oae.core'], function($, oae) {
                         ]
                     }
                 ]
+            },
+            {
+                'id': 'favorites',
+                'title': oae.api.i18n.translate('__MSG__MY_FAVORITES__'),
+                'icon': 'fa-star',
+                'closeNav': true,
+                'layout': [
+                    {
+                        'width': 'col-md-12',
+                        'widgets': [
+                            {
+                                'name': 'favoriteslibrary',
+                                'settings': {
+                                    'context': oae.data.me,
+                                    'canManage': true
+                                }
+                            }
+                        ]
+                    }
+                ]
             }
         ];
 
