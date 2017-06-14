@@ -71,9 +71,12 @@ define(['exports', 'jquery'], function(exports, $) {
             'type': 'POST',
             'data': data,
             'success': function(data) {
+                console.log('add addToFavorites OK')
                 callback(null, data);
             },
             'error': function(jqXHR, textStatus) {
+                console.log('add addToFavorites NOT OK')
+
                 callback({'code': jqXHR.status, 'msg': jqXHR.responseText});
             }
         });
@@ -82,14 +85,14 @@ define(['exports', 'jquery'], function(exports, $) {
         /**
      * Create a new folder
      *
-     * @param  {String}         idPrincipals            Display title for the created folder
+     * @param  {String}         idPrincipal             Display title for the created folder
      * @param  {String}         idResources             The folder's description
      * @param  {Function}       [callback]              Standard callback function
      * @param  {Object}         [callback.err]          Error object containing error code and error message
      * @throws {Error}                                  Error thrown when no valid display name has been provided
      */
-    var removeFavorite = exports.removeFavorite = function(idPrincipals, idResources, callback) {
-        if (!idPrincipals) {
+    var removeFromFavorites = exports.removeFromFavorites = function(idPrincipal, idResources, callback) {
+        if (!idPrincipal) {
             throw new Error('A valid user id should be provided');
         }
         if (!idResources) {
@@ -100,7 +103,7 @@ define(['exports', 'jquery'], function(exports, $) {
         callback = callback || function() {};
 
         var data = {
-            'idPrincipals': idPrincipals,
+            'idPrincipal': idPrincipal,
             'idResources': idResources
         };
 
