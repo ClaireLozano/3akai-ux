@@ -360,4 +360,116 @@ define(['exports', 'jquery', 'underscore', 'oae.api.util'], function(exports, $,
             }
         });
     };
+
+    /**
+     * Create share code
+     *
+     * @param  {String}       groupId             The id of the group 
+     * @param  {Function}     [callback]          Standard callback function
+     * @param  {Object}       [callback.err]      Error object containing error code and error message
+     * @throws {Error}                            Error thrown when no group id has been provided
+     */
+    var createShareCode = exports.createShareCode = function(groupId, role, callback) {
+        if (!groupId) {
+            throw new Error('A valid group id should be provided');
+        }
+
+        // Set a default callback function in case no callback function has been provided
+        callback = callback || function() {};
+
+        $.ajax({
+            'url': '/api/group/' + groupId + '/' + role + '/createShareCode',
+            'type': 'POST',
+            'success': function(data) {
+                callback(null, data);
+            },
+            'error': function(jqXHR, textStatus) {
+                callback({'code': jqXHR.status, 'msg': jqXHR.responseText});
+            }
+        });
+    };
+
+    /**
+     * Get share code
+     *
+     * @param  {String}       groupId             The id of the group
+     * @param  {Function}     [callback]          Standard callback function
+     * @param  {Object}       [callback.err]      Error object containing error code and error message
+     * @throws {Error}                            Error thrown when no group id has been provided
+     */
+    var getShareCode = exports.getShareCode = function(groupId, callback) {
+        if (!groupId) {
+            throw new Error('A valid group id should be provided');
+        }
+
+        // Set a default callback function in case no callback function has been provided
+        callback = callback || function() {};
+
+        $.ajax({
+            'url': '/api/group/' + groupId + '/shareCode',
+            'type': 'GET',
+            'success': function(data) {
+                callback(null, data);
+            },
+            'error': function(jqXHR, textStatus) {
+                callback({'code': jqXHR.status, 'msg': jqXHR.responseText});
+            }
+        });
+    };
+
+    /**
+     * Remove share code
+     *
+     * @param  {String}       groupId             The id of the group 
+     * @param  {Function}     [callback]          Standard callback function
+     * @param  {Object}       [callback.err]      Error object containing error code and error message
+     * @throws {Error}                            Error thrown when no group id has been provided
+     */
+    var removeShareCode = exports.removeShareCode = function(groupId, callback) {
+        if (!groupId) {
+            throw new Error('A valid group id should be provided');
+        }
+
+        // Set a default callback function in case no callback function has been provided
+        callback = callback || function() {};
+
+        $.ajax({
+            'url': '/api/group/' + groupId + '/shareCode',
+            'type': 'DELETE',
+            'success': function() {
+                callback(null);
+            },
+            'error': function(jqXHR, textStatus) {
+                callback({'code': jqXHR.status, 'msg': jqXHR.responseText});
+            }
+        });
+    };
+
+    /**
+     * Join group
+     *
+     * @param  {String}       code                The code given by the user
+     * @param  {Function}     [callback]          Standard callback function
+     * @param  {Object}       [callback.err]      Error object containing error code and error message
+     * @throws {Error}                            Error thrown when no group id has been provided
+     */
+    var joinGroup = exports.joinGroup = function(code, callback) {
+        if (!code) {
+            throw new Error('A valid code should be provided');
+        }
+
+        // Set a default callback function in case no callback function has been provided
+        callback = callback || function() {};
+
+        $.ajax({
+            'url': '/api/group/join/' + code,
+            'type': 'POST',
+            'success': function(data) {
+                callback(null, data);
+            },
+            'error': function(jqXHR, textStatus) {
+                callback({'code': jqXHR.status, 'msg': jqXHR.responseText});
+            }
+        });
+    };
 });
